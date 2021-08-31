@@ -1,0 +1,32 @@
+# -*- coding:utf8 -*-
+import rawpy
+import numpy as np
+import imageio
+import matplotlib.pylab as plt
+import codecs
+
+#input_filename = '20200818_071040.985037_p[ZSLSnapshotYUVHAL]_req[1]_batch[0]_BPS[0]_port[0]_w[4000]_h[3000].RAWPLAIN16'
+#output_filename = 'remove_last_2560_bytes.raw'
+input_filename = 'test.raw'
+output_filename = 'remove_last_256_bytes_0909.raw'
+fp = open(input_filename, "rb")
+data = fp.read()
+fp.close()
+
+fp = open(output_filename, "wb")
+fp.write(data[:-256])
+fp.close()
+
+dump_file = rawpy.imread(output_filename)
+dump_im = dump_file.raw_image
+
+dump_np = np.fromfile(output_filename, dtype=np.int16)
+print(dump_np)
+dump_np_reshape = dump_np.reshape((3000, 4000))
+print(dump_np_reshape)
+
+dng_file = rawpy.imread('./OpenCamera/IMG_20200831_144846.dng')
+dng_im = dng_file.raw_image
+
+value = np.array_equal(dng_im, dump_np_reshape)
+print("compare data is " + str(value))
