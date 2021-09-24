@@ -47,8 +47,8 @@ if __name__ == '__main__':
     crop_top = args.top
     crop_rows = args.crop_h
     crop_cols = args.crop_w
-    bound_checker(crop_left, crop_cols, img_height)
-    bound_checker(crop_top, crop_rows, img_width)
+    bound_checker(crop_left, crop_cols, img_width)
+    bound_checker(crop_top, crop_rows, img_height)
     #rows = 3072 #height
     #cols = 4096 #width
     #crop_rows = 1024
